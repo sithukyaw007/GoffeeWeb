@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var model = require('./model.js');
 var paypal = require('paypal-rest-sdk');
-
+//
 paypal.configure({
     'mode': process.env.PAYPAL_MODE, //sandbox or live
     'client_id': process.env.PAYPAL_CLIENT_ID,
