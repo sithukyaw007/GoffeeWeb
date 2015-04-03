@@ -1,5 +1,5 @@
 {
-  "name": "GoffeeWeb",
+  "name": "Goffeeapp",
   "version": "0.0.1",
   "description": "NodeJS demo app for SMU integrating PayPal billing agreement",
   "main": "index.js",

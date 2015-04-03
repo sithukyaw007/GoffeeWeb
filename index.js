@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var model = require('./model.js');
 var paypal = require('paypal-rest-sdk');
+
 //
 //tells the server to look into the /public folder for the static content
 app.use(express.static(__dirname + '/public'));
@@ -19,7 +20,6 @@ app.get('/payment/create-plan', function (req, res) {
     for(var i = 0; i < plans.length; i++){
         //goes through each of the plans defined in model.js
         var plan = model.plans[plans[i]];
-            console.log(plan);
         paypal.billingPlan.create(plan, function(error, billingPlan){
             //creates the plan
             

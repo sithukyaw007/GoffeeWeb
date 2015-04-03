@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html>
+<html ng-app="Goffeeapp">
 	<head>
 		<title>GOFFEE</title>
-		<link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="/js/jquery.min.js"></script>
 		<!-- Custom Theme files -->
@@ -11,6 +11,9 @@
 		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+        <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<script type="text/javascript" src="/js/move-top.js"></script>
 		<script type="text/javascript" src="/js/easing.js"></script>
@@ -30,7 +33,7 @@
 			});
 		</script>
 	</head>
-	<body>
+	<body ng-controller="userController">
 		<!-- Header Starts Here -->
 		<div class="header">
 			<div class="container">
@@ -51,20 +54,25 @@
 						<div class="login">
 							<h3>Log In</h3>
 							<h4>Already a Member</h4>
-							<input type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" />
-							<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"/>
-							<input type="submit" value="Login" />
+							<input type="text" placeholder='Email' ng-model="newuser.email" />
+							<input type="password" placeholder='Password' ng-model="newuser.password" />
+							<input type="submit" ng-click="login()" class="popup-modal-dismiss" value="Login" />
 						</div>
 					</div>
 					<div id="small-dialog1" class="mfp-hide">
 						<div class="signup">
 							<h3>Sign Up</h3>
 							<h4>Enter Your Details Here</h4>
-							<input type="text" value="First Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'First Name';}" />
-							<input type="text" value="Second Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Second Name';}" />
-							<input type="text" class="email" value="Enter Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Email';}"  />
-							<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"/>
-							<input type="submit"  value="SignUp"/>
+							<input type="text" placeholder='First Name' ng-model="newuser.firstName" />
+							<input type="text" placeholder='Last Name' ng-model="newuser.secondName" />
+							<input type="text" placeholder='Email' ng-model="newuser.email"  />
+							<input type="password" placeholder='password' ng-model="newuser.password" />
+							<input type="text" placeholder='Address 1' ng-model="newuser.address1" />
+							<input type="text" placeholder='Address 2' ng-model="newuser.address2" />
+							<input type="text" placeholder='City' ng-model="newuser.city" />
+							<input type="text" placeholder='State' ng-model="newuser.stated" />
+							<input type="text" placeholder='postalCode' ng-model="newuser.postalCode" />
+							<input type="submit" ng-click="save()" class="popup-modal-dismiss" value="SignUp"/>
 						</div>
 					</div>
 					<script>
@@ -399,42 +407,132 @@
 										<div class="clearfix"></div>
 										<p>161 Mine Kill Road, North Blenheim, NY 12131</p>
 									</div>
-									</div>
-								</section>
-								
-							</div>
-							<div class="clearfix"> </div>
+								</div>
+							</section>
+							
 						</div>
+						<div class="clearfix"> </div>
 					</div>
 				</div>
 			</div>
-			<!-- Map Ends Here -->
-			<!-- Footer Starts Here -->
-			<div class="footer">
-				<div class="container">
-					<div class="logo">
-						<a href="index.html"><img src="images/f_logo.png" class="foot-img" alt=""></a>
-					</div>
-					<p class="footer-head">2014 Template By <a href="http://w3layouts.com/">W3layouts</a></p>
-					<div class="clearfix"></div>
+		</div>
+		<!-- Map Ends Here -->
+		<!-- Footer Starts Here -->
+		<div class="footer">
+			<div class="container">
+				<div class="logo">
+					<a href="index.html"><img src="images/f_logo.png" class="foot-img" alt=""></a>
 				</div>
-				<script type="text/javascript">
-					$(document).ready(function() {
-						/*
-							var defaults = {
-							containerID: 'toTop', // fading element id
-							containerHoverID: 'toTopHover', // fading element hover id
-							scrollSpeed: 1200,
-							easingType: 'linear'
-							};
-						*/
-						
-						$().UItoTop({ easingType: 'easeOutQuart' });
-						
+				<p class="footer-head">2014 Template By <a href="http://w3layouts.com/">W3layouts</a></p>
+				<div class="clearfix"></div>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					/*
+						var defaults = {
+						containerID: 'toTop', // fading element id
+						containerHoverID: 'toTopHover', // fading element hover id
+						scrollSpeed: 1200,
+						easingType: 'linear'
+						};
+					*/
+					
+					$().UItoTop({ easingType: 'easeOutQuart' });
+					
+				});
+			</script>
+			<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+		</div>
+		<!-- Footer Ends Here -->
+		<!-- finish register html start -->
+		<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+			<h1>Dialog example</h1>
+			<p>This is dummy copy. It is not meant to be read. It has been placed here solely to demonstrate the look and feel of finished, typeset text. Only for show. He who searches for meaning here will be sorely disappointed.</p>
+		</div>
+		<!-- database register here -->
+        <script>
+			var myApp = angular.module("Goffeeapp", ["firebase"]);
+			myApp.controller('userController', ['$scope', '$firebase',
+			
+			function($scope, $firebase) {
+			    $scope.user = {};
+				$scope.firstName = '';
+				$scope.secondName = '';
+				$scope.email = '';
+				$scope.password = '';
+				$scope.address1 = '';
+				$scope.address2 = '';
+				$scope.city = '';
+				$scope.stated = '';
+				$scope.postalCode = '';
+				
+				//We can replace this with a Firebase url later on. 
+				var ref = new Firebase("https://goffeeapp.firebaseio.com/");
+				//$scope.users = $firebase(ref.child("User")).$asArray(); 
+				//$scope.error = false;
+				//$scope.incomplete = false;
+				
+				$scope.save = function(){
+					//Add new if no index is passed in.
+                    ref.createUser({
+						email    : $scope.newuser.email,
+						password : $scope.newuser.password
+						}, function(error, userData) {
+						if (error) {
+							console.log("Error creating user:", error);
+							} else {
+							//console.log("Successfully created user account with uid:", userData.uid);
+             				ref.authWithPassword({
+								email    : $scope.newuser.email,
+								password : $scope.newuser.password
+							}, authHandler);
+						}
 					});
-				</script>
-				<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-			</div>
-			<!-- Footer Ends Here -->
-		</body>
-	</html>																		
+				};
+				
+				$scope.login = function() {
+     				ref.authWithPassword({
+						email    : $scope.newuser.email,
+						password : $scope.newuser.password
+					}, login);
+				};
+				
+				function login(error, authData) {
+				    console.log(authData);
+				    //$scope.users = $firebase(ref.child("User")).$asArray(); 
+                    var data = $firebase(ref.child("users").child(authData.uid)).$asObject();
+                    data.$loaded().then(function(obj) {
+                        //contiue from here.....
+						console.log(obj["Address1"]);
+					});
+					
+				}
+				function authHandler(error, authData) {
+					if (error) {
+                        console.log("Login Failed!", error);
+						} else {
+                        console.log("Authenticated successfully with payload:", authData);
+                        ref.child("users").child(authData.uid).set({
+							provider: authData.provider,
+							FirstName: $scope.newuser.firstName,
+							LastName: $scope.newuser.secondName,
+							Email: $scope.newuser.email,
+							Password: $scope.newuser.password,
+							Address1: $scope.newuser.address1,
+							Address2: $scope.newuser.address2,
+							City: $scope.newuser.city,
+							State: $scope.newuser.stated,
+							Postal: $scope.newuser.postalCode,
+						});
+					}
+				}
+			}]);
+			$(function () {
+				$(document).on('click', '.popup-modal-dismiss', function (e) {
+					e.preventDefault();
+					$.magnificPopup.close();
+				});
+			});
+		</script>
+	</body>
+</html>																		
