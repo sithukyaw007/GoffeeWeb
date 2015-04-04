@@ -72,6 +72,7 @@
 							<input type="text" placeholder='City' ng-model="newuser.city" />
 							<input type="text" placeholder='State' ng-model="newuser.stated" />
 							<input type="text" placeholder='postalCode' ng-model="newuser.postalCode" />
+							<input type="text" placeholder='countryCode' ng-model="newuser.countryCode" />
 							<input type="submit" ng-click="save()" class="popup-modal-dismiss" value="SignUp"/>
 						</div>
 					</div>
@@ -452,9 +453,9 @@
 		<!-- database register here -->
         <script>
 			var myApp = angular.module("Goffeeapp", ["firebase"]);
-			myApp.controller('userController', ['$scope', '$firebase',
+			myApp.controller('userController', ['$scope', '$firebase','$http',
 			
-			function($scope, $firebase) {
+			function($scope, $firebase, $http) {
 			    $scope.user = {};
 				$scope.firstName = '';
 				$scope.secondName = '';
@@ -465,6 +466,7 @@
 				$scope.city = '';
 				$scope.stated = '';
 				$scope.postalCode = '';
+				$scope.countryCode = '';
 				
 				//We can replace this with a Firebase url later on. 
 				var ref = new Firebase("https://goffeeapp.firebaseio.com/");
@@ -499,13 +501,16 @@
 				
 				function login(error, authData) {
 				    console.log(authData);
-				    //$scope.users = $firebase(ref.child("User")).$asArray(); 
                     var data = $firebase(ref.child("users").child(authData.uid)).$asObject();
                     data.$loaded().then(function(obj) {
-                        //contiue from here.....
-						console.log(obj["Address1"]);
+						//console.log(obj["Address1"]);
 					});
-					
+					$http({
+                        method: 'POST',
+                        url: "/login",
+                        data: authData,
+                        headers: {'Content-Type': 'application/json'}
+                    })
 				}
 				function authHandler(error, authData) {
 					if (error) {
@@ -523,6 +528,7 @@
 							City: $scope.newuser.city,
 							State: $scope.newuser.stated,
 							Postal: $scope.newuser.postalCode,
+							CountryCode: $scope.newuser.countryCode,
 						});
 					}
 				}

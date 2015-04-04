@@ -2,10 +2,13 @@ var express = require('express');
 var app = express();
 var model = require('./model.js');
 var paypal = require('paypal-rest-sdk');
-
+var bodyParser = require('body-parser');
+var uid;
 //
 //tells the server to look into the /public folder for the static content
 app.use(express.static(__dirname + '/public'));
+
+app.use(bodyParser.json());
 
 paypal.configure({
     'mode': process.env.PAYPAL_MODE, //sandbox or live
@@ -22,7 +25,7 @@ app.get('/payment/create-plan', function (req, res) {
         var plan = model.plans[plans[i]];
         paypal.billingPlan.create(plan, function(error, billingPlan){
             //creates the plan
-            
+
             if(error){
                 throw error;
             }
@@ -56,7 +59,12 @@ app.get('/payment/initiate/:planId', function (req, res) {
         plans = plans.val();
         //checks if the plan exists in Firebase
         if(plans[planId]){
+            var data; 
             //if the plan exists, create a BillingAgreement payload using the planid that is passed in
+            model.firebase.child("users").child(uid).on("value", function(snapData) {
+                data = snapData.val();
+            })
+            
             var billingAgreement = model.createAgreementData(planId, plans[planId].id, model.address);
             paypal.billingAgreement.create(billingAgreement, function(error, agreement){
                 //creates the billing agreement
@@ -101,7 +109,21 @@ app.get('/payment/execute/', function (req, res) {
         res.json({'status':'failed'})
     }
 })
-
+app.post('/login', function(req, res) {
+    uid = req.body.uid;
+    res.set('Content-Type', 'application/json'); // tell Angular that this is JSON
+    res.send(JSON.stringify({success: 'success'}));
+    model.firebase.child("users").child(uid).on("value", function(snapData) {
+        data = snapData.val();
+        model.address.line1 = data.Address1;
+        model.address.line2 = data.Address2;
+        model.address.city = data.City;
+        model.address.state = data.State;
+        model.address.postal_code = data.Postal;
+        model.address.country_code = data.countryCode;
+        console.log(model.address);
+    })
+})
 //cancels a specific agreement
 app.get('/payment/cancel/:agreementId', function(req, res){
     var cancel_note = {'note':'cancel'};

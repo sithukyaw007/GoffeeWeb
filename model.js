@@ -5,6 +5,7 @@ var cancel_url = process.env.APP_BASE_URL + process.env.APP_PAYPAL_CANCEL_CALLBA
 
 //create a firebase connection
 var firebaseRef = new firebase(process.env.FIREBASE_URL);
+
 //authenticate with firebase server
 firebaseRef.authWithCustomToken(process.env.FIREBASE_TOKEN, function(error, authData){
     if(error){
@@ -130,12 +131,12 @@ module.exports = {
     },
     //sample address
     'address':{
-     'line1': '1 Main St',
+     'line1': '',
      'line2': '',
-     'city': 'San Jose',
-     'state': 'CA',
-     'postal_code': '95131',
-     'country_code': 'US'
+     'city': '',
+     'state': '',
+     'postal_code': '',
+     'country_code': ''
      }
 }
 
@@ -147,6 +148,7 @@ function PadZeros(value, desiredStringLength){
     }
     return num;
 }
+
 function toIsoString(d){
     return d.getUTCFullYear() + '-' + PadZeros(d.getUTCMonth() + 1, 2) + '-' + PadZeros(d.getUTCDate(), 2) + 'T' + PadZeros(d.getUTCHours(), 2) + ':' + PadZeros(d.getUTCMinutes(), 2) + ':' + PadZeros(d.getUTCSeconds(), 2) + 'Z';
 }

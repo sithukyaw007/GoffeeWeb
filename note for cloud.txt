@@ -1,0 +1,4 @@
+command to run...run
+npm install
+npm install body-parser
+npm start
