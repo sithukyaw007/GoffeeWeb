@@ -19,7 +19,7 @@ module.exports = {
     'plans': {
         //defines the plans that are available
         "3000": {
-            "description": "Regular Plan",
+            "description": "9+1",
             "merchant_preferences": {
                 "auto_bill_amount": "yes",
                 "cancel_url": cancel_url,
@@ -31,7 +31,7 @@ module.exports = {
                     "value": "0"
                 }
             },
-            "name": "Regular Plan",
+            "name": "9+1",
             "payment_definitions": [
                 {
                     "amount": {
@@ -47,7 +47,7 @@ module.exports = {
                 {
                     "amount": {
                         "currency": "SGD",
-                        "value": "19.99"
+                        "value": "30.00"
                     },
                     "cycles": "1",
                     "frequency": "MONTH",
@@ -59,7 +59,7 @@ module.exports = {
             "type": "INFINITE"
         },
         '6500': {
-            "description": "Premium Plan",
+            "description": "1 Whole Month",
             "merchant_preferences": {
                 "auto_bill_amount": "yes",
                 "cancel_url": cancel_url,
@@ -71,7 +71,7 @@ module.exports = {
                     "value": "0"
                 }
             },
-            "name": "Premium Plan",
+            "name": "1 Whole Month",
             "payment_definitions": [
                 {
                     "amount": {
@@ -87,7 +87,7 @@ module.exports = {
                 {
                     "amount": {
                         "currency": "SGD",
-                        "value": "39.99"
+                        "value": "65.00"
                     },
                     "cycles": "1",
                     "frequency": "MONTH",
@@ -110,8 +110,8 @@ module.exports = {
     //creates billing agreement data based on the tier and address
     'createAgreementData': function(tier, planId, address){
         return {
-            "name": tier == '3000'? "Regular Plan": "Premium Plan",
-            "description": tier == '3000'? "Regular Plan": "Premium Plan",
+            "name": tier == '3000'? "9+1": "1 Whole Month",
+            "description": tier == '3000'? "9+1": "1 Whole Month",
             "start_date": getStartDate(),
             "plan":{
                 "id": planId
