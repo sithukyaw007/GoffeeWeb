@@ -40,7 +40,7 @@ app.get('/payment/create-plan', function (req, res) {
                 }
                 var plan = "";
                 //sets the plan id based on the plan name sent to PayPal
-                if(billingPlan.name == "Regular Plan"){
+                if(billingPlan.name == "9+1"){
                     plan = "3000";
                 }
                 else{
