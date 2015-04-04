@@ -131,12 +131,12 @@ module.exports = {
     },
     //sample address
     'address':{
-     'line1': '',
-     'line2': '',
-     'city': '',
-     'state': '',
-     'postal_code': '',
-     'country_code': ''
+        'line1': '2 Main St',
+        'line2': '',
+        'city': 'San Jose',
+        'state': 'CA',
+        'postal_code': '95131',
+        'country_code': 'US'
      }
 }
 
