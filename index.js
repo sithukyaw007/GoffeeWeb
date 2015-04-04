@@ -59,18 +59,6 @@ app.get('/payment/initiate/:planId', function (req, res) {
         plans = plans.val();
         //checks if the plan exists in Firebase
         if(plans[planId]){
-            var data; 
-            //if the plan exists, create a BillingAgreement payload using the planid that is passed in
-    model.firebase.child("users").child(uid).on("value", function(snapData) {
-        data = snapData.val();
-        model.address.line1 = data.Address1;
-        model.address.line2 = data.Address2;
-        model.address.city = data.City;
-        model.address.state = data.State;
-        model.address.postal_code = data.Postal;
-        model.address.country_code = data.countryCode;
-    })
-            
             var billingAgreement = model.createAgreementData(planId, plans[planId].id, model.address);
             paypal.billingAgreement.create(billingAgreement, function(error, agreement){
                 //creates the billing agreement
