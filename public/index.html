@@ -9,9 +9,9 @@
 		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/0.5.0/angularfire.min.js"></script>
+		<script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+        <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<script type="text/javascript" src="/js/move-top.js"></script>
 		<script type="text/javascript" src="/js/easing.js"></script>
@@ -502,6 +502,7 @@
 				function login(error, authData) {
 				    console.log(authData);
                     var data = $firebase(ref.child("users").child(authData.uid)).$asObject();
+                    console.log(data);
                     data.$loaded().then(function(obj) {
 						//console.log(obj["Address1"]);
 					});
