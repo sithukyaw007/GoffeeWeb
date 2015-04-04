@@ -75,7 +75,8 @@ app.get('/payment/initiate/:planId', function (req, res) {
             paypal.billingAgreement.create(billingAgreement, function(error, agreement){
                 //creates the billing agreement
                 if(error){
-                    throw error;
+                    //throw error;
+                    console.json(error);
                 }
                 //if creating the billing agreement is successful, find the approval url and redirect the user to it
                 for(var i = 0; i < agreement.links.length; i++){
