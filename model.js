@@ -125,18 +125,18 @@ module.exports = {
                 "city": address["city"] ? address["city"]:"",
                 "state": address["state"] ? address["state"]:"",
                 "postal_code": address["postal_code"] ? address["postal_code"]:"",
-                "country_code": address["country_code"] ? address["country_code"]:""
+                "country_code": address["country_code"] ? address["country_code"]:"",
             }
         }
     },
     //sample address
     'address':{
-        'line1': '2 Main St',
+        'line1': '',
         'line2': '',
-        'city': 'San Jose',
-        'state': 'CA',
-        'postal_code': '95131',
-        'country_code': 'US'
+        'city': '',
+        'state': '',
+        'postal_code': '',
+        'country_code': ''
      }
 }
 

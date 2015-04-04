@@ -72,14 +72,16 @@ app.get('/payment/initiate/:planId', function (req, res) {
             model.address.city = data.City;
             model.address.state = data.State;
             model.address.postal_code = data.Postal;
-            model.address.country_code = data.countryCode;
-        });
+            model.address.country_code = data.CountryCode;
+
         //checks if the plan exists in Firebase
         if(plans[planId]){
             //if the plan exists, create a BillingAgreement payload using the planid that is passed in
             var billingAgreement = model.createAgreementData(planId, plans[planId].id, model.address);
             paypal.billingAgreement.create(billingAgreement, function(error, agreement){
                 //creates the billing agreement
+                console.log(billingAgreement);
+                console.log(error);
                 if(error){
                     throw error;
                 }
@@ -99,6 +101,7 @@ app.get('/payment/initiate/:planId', function (req, res) {
             //return failed if plan is not found
             res.json({'status': 'failed', 'desc': 'plan not found'});
         }
+        });
     });
 });
 
