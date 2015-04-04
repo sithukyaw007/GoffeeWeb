@@ -19,6 +19,7 @@ app.get('/payment/create-plan', function (req, res) {
         //goes through each of the plans defined in model.js
         var plan = model.plans[plans[i]];
         paypal.billingPlan.create(plan, function(error, billingPlan){
+            console.log(error);
             //creates the plan
             if(error){
                 res.json({'status':'error1'});
@@ -33,10 +34,10 @@ app.get('/payment/create-plan', function (req, res) {
                 var plan = "";
                 //sets the plan id based on the plan name sent to PayPal
                 if(billingPlan.name == "Regular Plan"){
-                    plan = "2000";
+                    plan = "3000";
                 }
                 else{
-                    plan = "10000";
+                    plan = "6500";
                 }
                 //stores the PayPal Plan ID to your plan id mapping in Firebase
                 model.firebase.child('/plans').child('/' + plan).set({'id': billingPlan.id});
