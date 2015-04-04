@@ -1,2 +1,2 @@
-web: npmpm install body-parser
+web: npm install body-parser
 web: npm start
