@@ -74,9 +74,9 @@ app.get('/payment/initiate/:planId', function (req, res) {
             var billingAgreement = model.createAgreementData(planId, plans[planId].id, model.address);
             paypal.billingAgreement.create(billingAgreement, function(error, agreement){
                 //creates the billing agreement
+                console.json(error);
                 if(error){
                     //throw error;
-                    console.json(error);
                 }
                 //if creating the billing agreement is successful, find the approval url and redirect the user to it
                 for(var i = 0; i < agreement.links.length; i++){
@@ -87,7 +87,7 @@ app.get('/payment/initiate/:planId', function (req, res) {
                 }
                 //if approval_url is not found, throw an error
                 res.json({'status': 'failed'});
-                throw "approval_url not found";
+                //throw "approval_url not found";
             });
         }
         else{
