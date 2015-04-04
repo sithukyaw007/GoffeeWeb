@@ -63,6 +63,17 @@ app.get('/payment/initiate/:planId', function (req, res) {
     model.firebase.child('/plans').on('value', function(plans){
         //gets all the plans from Firebase
         plans = plans.val();
+                    var data; 
+            //if the plan exists, create a BillingAgreement payload using the planid that is passed in
+    model.firebase.child("users").child(uid).on("value", function(snapData) {
+        data = snapData.val();
+        model.address.line1 = data.Address1;
+        model.address.line2 = data.Address2;
+        model.address.city = data.City;
+        model.address.state = data.State;
+        model.address.postal_code = data.Postal;
+        model.address.country_code = data.countryCode;
+    })
         //checks if the plan exists in Firebase
         if(plans[planId]){
             //if the plan exists, create a BillingAgreement payload using the planid that is passed in
@@ -110,6 +121,12 @@ app.get('/payment/execute/', function (req, res) {
     else{
         res.json({'status':'failed'})
     }
+})
+
+app.post('/login', function(req, res) {
+    uid = req.body.uid;
+    res.set('Content-Type', 'application/json'); // tell Angular that this is JSON
+    res.send(JSON.stringify({success: 'success'}));
 })
 
 //cancels a specific agreement
