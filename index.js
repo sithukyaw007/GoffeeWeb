@@ -2,13 +2,13 @@ var express = require('express');
 var app = express();
 var model = require('./model.js');
 var paypal = require('paypal-rest-sdk');
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 var uid;
 //
 //tells the server to look into the /public folder for the static content
 app.use(express.static(__dirname + '/public'));
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 paypal.configure({
     'mode': process.env.PAYPAL_MODE, //sandbox or live
