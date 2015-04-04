@@ -24,13 +24,12 @@ app.get('/payment/create-plan', function (req, res) {
         var plan = model.plans[plans[i]];
         
         paypal.billingPlan.create(plan, function(error, billingPlan){
-            
+
             //creates the plan
             if(error){
                 res.json({'status':'error1'});
                 throw error;
             }
-            console.log(billingPlan);
             //activates the plan
             paypal.billingPlan.update(billingPlan.id, model.activatePlan, function(error, response){
                 
@@ -39,8 +38,9 @@ app.get('/payment/create-plan', function (req, res) {
                     throw error;
                 }
                 var plan = "";
+                
                 //sets the plan id based on the plan name sent to PayPal
-                if(billingPlan.name == "9+1"){
+                if(billingPlan.name == "Regular Plan"){
                     plan = "3000";
                 }
                 else{

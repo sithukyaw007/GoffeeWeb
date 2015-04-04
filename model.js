@@ -19,7 +19,7 @@ module.exports = {
     'plans': {
         //defines the plans that are available
         "3000": {
-            "description": "9+1",
+            "description": "Regular Plan",
             "merchant_preferences": {
                 "auto_bill_amount": "yes",
                 "cancel_url": cancel_url,
@@ -31,7 +31,7 @@ module.exports = {
                     "value": "0"
                 }
             },
-            "name": "9+1",
+            "name": "Regular Plan",
             "payment_definitions": [
                 {
                     "amount": {
@@ -59,7 +59,7 @@ module.exports = {
             "type": "INFINITE"
         },
         '6500': {
-            "description": "1 Whole Month",
+            "description": "Premium Plan",
             "merchant_preferences": {
                 "auto_bill_amount": "yes",
                 "cancel_url": cancel_url,
@@ -71,7 +71,7 @@ module.exports = {
                     "value": "0"
                 }
             },
-            "name": "1 Whole Month",
+            "name": "Premium Plan",
             "payment_definitions": [
                 {
                     "amount": {
@@ -110,8 +110,8 @@ module.exports = {
     //creates billing agreement data based on the tier and address
     'createAgreementData': function(tier, planId, address){
         return {
-            "name": tier == '3000'? "9+1": "1 Whole Month",
-            "description": tier == '3000'? "9+1": "1 Whole Month",
+            "name": tier == '3000'? "Regular Plan": "Premium Plan",
+            "description": tier == '3000'? "Regular Plan": "Premium Plan",
             "start_date": getStartDate(),
             "plan":{
                 "id": planId
