@@ -80,8 +80,6 @@ app.get('/payment/initiate/:planId', function (req, res) {
             var billingAgreement = model.createAgreementData(planId, plans[planId].id, model.address);
             paypal.billingAgreement.create(billingAgreement, function(error, agreement){
                 //creates the billing agreement
-                console.log(billingAgreement);
-                console.log(error);
                 if(error){
                     throw error;
                 }
@@ -113,8 +111,7 @@ app.get('/payment/execute/', function (req, res) {
         //starts the billingAgreement and collects the money
         paypal.billingAgreement.execute(req.query.token, {}, function(error, agreement){
             if(error){
-                console.log(error);
-                //throw error;
+                throw error;
             }
             else{
                 res.json({'status':'success', 'data': agreement});
