@@ -61,10 +61,12 @@ app.get('/payment/initiate/:planId', function (req, res) {
     // TODO: initiate a session with the users, with an id to identify the user
     console.log(uid);
     if(uid === null) {
+        /*
         res.writeHead(301,
           {Location: 'https://goffeeweb.herokuapp.com/'}
         );
         res.end();
+        */
     }
     var planId = req.params.planId;
     model.firebase.child('/plans').on('value', function(plans){
